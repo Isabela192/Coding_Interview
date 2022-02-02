@@ -46,4 +46,23 @@ def URLify(string):
 
 
 string = "Mr John Smith    "
-print(urlify(string))
+print(URLify(string))
+
+
+# 1.4 Palindrome Permutation:
+# Given a string, write a function to check if it is a permutation of a palindrome.
+
+def isPalindromePermutation(string):
+
+    string = string.replace(" ", "")
+    string = string.lower()
+
+    if string == string[::-1]:
+        return True
+
+    else:
+        return False
+    
+string_test = "Taco Cat"
+print(isPalindromePermutation(string_test))    
+
