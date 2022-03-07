@@ -62,42 +62,50 @@ def isPalindromePermutation(string):
 
     else:
         return False
-    
+
+
 string_test = "Taco Cat"
-print(isPalindromePermutation(string_test))    
+print(isPalindromePermutation(string_test))
 
 
 # 1.5 One Away:
-# There are three types of edits that can be performed on strings: insert a character, 
+# There are three types of edits that can be performed on strings: insert a character,
 # remove a character, or replace a character.
 # Given two strings, write a function to check if they are one edit (or zero edits) away.
-def oneEditReplace(string_a, string_b):
+def oneEditAway(a, b):
+    i = 0
+    while i <= len(a):
+        for i in range(0, len(a)):
+            if a[i] != b[i]:
+                return True
+            else:
+                return False
 
-    count = 0
 
-    for i in range(len(string_a)):
-        if string_a[i] != string_b[i]:
-            count += 1
-
-        if count > 1:
-            return False
+def oneInsertAway(a, b):
+    i = 0
+    j = 0
+    while (i <= len(a)) and (j <= len(b)):
+        if a[i] != b[j]:
+            if i != j:
+                return False
+            j += 1
+        else:
+            i += 1
+            j += 1
 
     return True
-  
-    
 
-def oneAway(string_a, string_b):
 
-    if len(string_a) == len(string_b):
-        return oneEditReplace(string_a, string_b)
+def oneAway(a, b):
+    if len(a) == len(b):
+        return oneEditAway(a, b)
 
-    elif len(string_a) + 1 == len(string_b):
-        return oneEditInsert(string_a, string_b)
+    if len(a)-1 == len(b):
+        return oneInsertAway(a, b)
 
-    elif len(string_a) - 1 == len(string_b):
-        return oneEditInsert(string_b, string_a)
+    if len(a)+1 == len(b):
+        return oneInsertAway(a, b)
 
-    else:
-        return False
 
-print(oneAway("pale", "ple"))
+print(oneAway("pale", "bale"))
