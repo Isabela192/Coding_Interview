@@ -40,13 +40,13 @@ print(isPermutation(string_a, string_b))
 # You may assume that the string has sufficient space at the end to hold the additional characters, and thtat you are given the "true" length of the string.
 
 
-def URLify(string):
+def URLify(s):
 
-    return string.replace(" ", "%20")
+    return s.replace(" ", "%20")
 
 
-string = "Mr John Smith    "
-print(URLify(string))
+s = "Mr John Smith    "
+print(URLify(s))
 
 
 # 1.4 Palindrome Permutation:
@@ -77,9 +77,9 @@ def oneEditAway(a, b):
     while i <= len(a):
         for i in range(0, len(a)):
             if a[i] != b[i]:
-                return True
-            else:
                 return False
+            else:
+                return True
 
 
 def oneInsertAway(a, b):
@@ -105,7 +105,33 @@ def oneAway(a, b):
         return oneInsertAway(a, b)
 
     if len(a)+1 == len(b):
+        print("len(a)+1 == len(b)")
         return oneInsertAway(a, b)
 
 
-print(oneAway("pale", "bale"))
+print(oneAway("pale", "ple"))
+print(oneAway("pale", "bake"))
+
+
+# 1.6 String Compression:
+# Implement a method to perform basic string compression using the counts of repeated characters.
+
+def stringCompression(s):
+    compressed_string = ""
+    count = 1
+    for i in range(1, len(s)):
+        if s[i] == s[i-1]:
+            count += 1
+        else:
+            compressed_string += s[i-1] + str(count)
+            count = 1
+
+    compressed_string += s[-1] + str(count)
+
+    if len(compressed_string) < len(s):
+        return compressed_string
+    else:
+        return s
+    
+print(stringCompression("aabcccccaaa"))    
+print(stringCompression("abcdef"))
