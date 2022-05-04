@@ -165,9 +165,22 @@ print(rotateMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 def zeroMatrix(matrix):
     row = []
     col = []
-    for i in range(len(matrix[0])):
-        for j in range(len(matrix)):
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
             if matrix[i][j] == 0:
-                row = i
-                col = j
-                
+                if i not in row:
+                    row.append(i)
+                if j not in col:
+                    col.append(j)
+                    
+    for row_index in row:
+        for index in range(len(matrix[0])):
+            matrix[row_index][index] = 0
+            
+    for col_index in col:
+        for index in range(len(matrix)):
+            matrix[index][col_index] = 0
+            
+    return matrix
+            
+print(zeroMatrix([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))
