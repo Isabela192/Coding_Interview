@@ -184,3 +184,12 @@ def zeroMatrix(matrix):
     return matrix
             
 print(zeroMatrix([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))
+
+#1.9 String Rotation: Assume you have a method isSubstring which checks if one
+# word is a substring of another. Given two strings s1 and s2, write code to 
+# check if s2 is a rotation of s1 using only one call to isSubstring 
+
+def isSubstring(s1: str, s2: str):
+    return len(s1) == len(s2) and s2 in s1*2
+
+print(isSubstring("waterbottle", "erbottlewat"))
