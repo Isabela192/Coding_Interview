@@ -2,37 +2,46 @@
 # Implement an algorithm to determine if a string has all unique characters.
 # What if you cannot use additional data structures?
 
-from collections import Counter
-
-
-def isUnique(string):
-
-    if len(string) == len(Counter(string)):
-        return True
-
-    else:
+def is_unique(string):
+    # Assuming ASCII characters (total 128)
+    if len(string) > 128:
         return False
+
+    char_set = [False] * 128
+    for char in string:
+        if char_set[ord(char)]:
+            return False
+        char_set[ord(char)] = True
+
+    return True
 
 
 test_string = "abcdefghijklmnopqrstuvwxyz"
-print(isUnique(test_string))
+print(is_unique(test_string))
 
 
 # 1.2 Check Permutation:
 # Given two strings, write a method to decide if one is a permutation of the other.
 
-
-def isPermutation(string_a, string_b):
-
-    if len(string_a) != len(string_b):
+def is_permutation(str1, str2):
+    if len(str1) != len(str2):
         return False
 
-    return Counter(string_a) == Counter(string_b)
+    char_count = [0] * 128
 
+    for char in str1:
+        char_count[ord(char)] += 1
+
+    for char in str2:
+        char_count[ord(char)] -= 1
+        if char_count[ord(char)] < 0:
+            return False
+
+    return True
 
 string_a = "abcdefghijklmnopqrstuvwxyz"
-string_b = "zyxwvutsrqponmlkjihgfe1cba"
-print(isPermutation(string_a, string_b))
+string_b = "znopqrstuvwxyabcdefghijklm"
+print(is_permutation(string_a, string_b))
 
 
 # 1.3 URLify:
@@ -52,7 +61,7 @@ print(URLify(s))
 # 1.4 Palindrome Permutation:
 # Given a string, write a function to check if it is a permutation of a palindrome.
 
-def isPalindromePermutation(string):
+def is_palindrome_permutation(string):
 
     string = string.replace(" ", "")
     string = string.lower()
@@ -65,14 +74,14 @@ def isPalindromePermutation(string):
 
 
 string_test = "Taco Cat"
-print(isPalindromePermutation(string_test))
+print(is_palindrome_permutation(string_test))
 
 
 # 1.5 One Away:
 # There are three types of edits that can be performed on strings: insert a character,
 # remove a character, or replace a character.
 # Given two strings, write a function to check if they are one edit (or zero edits) away.
-def oneEditAway(a, b):
+def one_edit_away(a, b):
     i = 0
     while i <= len(a):
         for i in range(0, len(a)):
@@ -82,7 +91,7 @@ def oneEditAway(a, b):
                 return True
 
 
-def oneInsertAway(a, b):
+def one_insert_away(a, b):
     i = 0
     j = 0
     while (i <= len(a)) and (j <= len(b)):
@@ -97,26 +106,26 @@ def oneInsertAway(a, b):
     return True
 
 
-def oneAway(a, b):
+def one_away(a, b):
     if len(a) == len(b):
-        return oneEditAway(a, b)
+        return one_edit_away(a, b)
 
     if len(a)-1 == len(b):
-        return oneInsertAway(a, b)
+        return one_insert_away(a, b)
 
     if len(a)+1 == len(b):
         print("len(a)+1 == len(b)")
-        return oneInsertAway(a, b)
+        return one_insert_away(a, b)
 
 
-print(oneAway("pale", "ple"))
-print(oneAway("pale", "bake"))
+print(one_away("pale", "ple"))
+print(one_away("pale", "bake"))
 
 
 # 1.6 String Compression:
 # Implement a method to perform basic string compression using the counts of repeated characters.
 
-def stringCompression(s):
+def string_compression(s):
     compressed_string = ""
     count = 1
     for i in range(1, len(s)):
@@ -134,14 +143,14 @@ def stringCompression(s):
         return s
 
 
-print(stringCompression("aabcccccaaa"))
-print(stringCompression("abcdef"))
+print(string_compression("aabcccccaaa"))
+print(string_compression("abcdef"))
 
 
 # 1.7 Rotate Matrix:
 # Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes,
 # write a method to rotate the image by 90 degrees. Can you do this in place?
-def rotateMatrix(matrix):
+def rotate_matrix(matrix):
     n = len(matrix)
     for layer in range(n//2):
         first = layer
@@ -156,13 +165,13 @@ def rotateMatrix(matrix):
     return matrix
 
 
-print(rotateMatrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+print(rotate_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 
 
 # 1.8 Zero Matrix:
 # Write an algorithm such that if an element in a MxN matrix is 0, 
 # it's entire row and column are et to 0
-def zeroMatrix(matrix):
+def zero_matrix(matrix):
     row = []
     col = []
     for i in range(len(matrix)):
@@ -183,13 +192,13 @@ def zeroMatrix(matrix):
             
     return matrix
             
-print(zeroMatrix([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))
+print(zero_matrix([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))
 
 #1.9 String Rotation: Assume you have a method isSubstring which checks if one
 # word is a substring of another. Given two strings s1 and s2, write code to 
 # check if s2 is a rotation of s1 using only one call to isSubstring 
 
-def isSubstring(s1: str, s2: str):
+def is_substring(s1: str, s2: str):
     return len(s1) == len(s2) and s2 in s1*2
 
-print(isSubstring("waterbottle", "erbottlewat"))
+print(is_substring("waterbottle", "erbottlewat"))
